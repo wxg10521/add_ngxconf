@@ -8,28 +8,119 @@
              background:#ccccff;
 	     text-align:center;
             }
- 
       *{margin:0;padding:0;}
-      .box{width:100%;
-           height:200px;
+      .box{height: 30px;
+           width: 350px;
            background:#99ccff;
           }
   </style>
  </head>
+<style type="text/css">
+.ttbody{
+width: 500px;
+margin: 10 auto;
+border: 1px solid #A9A9A9;
+}
+.ipt{
+height: 50px;
+width: 500px;
+padding-top: 5px;
+padding-left: 10px;
+}
+.ipt input[type=text]{
+height: 30px;
+width: 350px;
+margin:10;
+background:#99ccff;
+background-color:#99ccff;
+}
+.ipt input[type=submit]{
+height: 30px;
+width: 350px;
+color: #FFFFFF;
+background-color: #317EF3;
+}
+.red{
+color:red;
+}
+.green{
+color:green;
+}
+.text2{
+margin-left:10px;
+margin-top:50px;
+}
+</style>
  <body>
     <div class="shou">
-       <h1> 欢迎来测试</h1>
+       <h1> 添加服务</h1>
     </div>
-     <div class="box">
-      <form  method="get">
-	请输入域名:<br>
-       <input type="text" name="domain" value="" size="35" >
+     <div class="ipt">
+      <form  method="get"    >
+	<span class="text2"> 请输入域名: </span>
+        <br>
+        <font style='position:absolute;left:550;top:120'>
+	<p>1. 两个元素前后都不能有空格。</p>
+	<p>2. 域名直接填写域名，后缀支持com|cn|io|net|org，如果其他，请联系管理员。</p>
+	<p>3.  地址默认输入内网ip:端口，如果是在portiner上部署，即输入portiner:端口即可</p>
+        </font>
+       <input type="text" name="domain" id='did' onblur="Check()"  >
+	<span id="domainTips"></span>
+        <br>
+	<span class="text2"> 请输入地址: </span>
       <br>
-        请输入服务器 :<br>
-      <input type="text" name="iport" value="" size="35">
+      <input type="text" name="iport"  id='pid' onblur="Check()" >
+	<span id="iportTips"></span>
      <br><br>
-      <input type="submit" value="提交表单" >
+     <div class="ipt">
+      <input type="submit" value="提交"  onclick="return Check()" >
       </form>
      </div>
  </body>
+  <script type="text/javascript">
+function Check()
+{
+　　var d = document.getElementById("did").value;//取到用户输入的值
+　　var p = document.getElementById("pid").value;//取到用户输入的值
+    var domainreg=/^[\w-]+(\.\w+)?\.\w+\.(com|cn|io|net|org)$$/;
+    var iportreg=/^((2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9]?[0-9])(\.(2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9]?[0-9])){3}|portainer)\:[1-9]\d{3,6}$$/
+　　if(d.trim().length==0)//对去掉空格后的值进行验证
+　　{
+    domainTips.innerHTML="域名不能为空";
+    domainTips.className="red";
+    dstats='NO';
+　　} else if (domainreg.test(d)){
+    domainTips.innerHTML="域名格式正确";
+    domainTips.className="green";
+    dstats='OK';
+    }
+    else
+    {
+    domainTips.innerHTML="域名格式错误";
+    domainTips.className="red";
+    dstats='NO';
+    }
+    if(p.trim().length==0)//对去掉空格后的值进行验证
+　　{
+    iportTips.innerHTML="地址不能为空";
+    iportTips.className="red";
+    pstats='NO';
+　　} else if (iportreg.test(p)){
+    iportTips.innerHTML="地址格式正确";
+    iportTips.className="green";
+    pstats='OK';
+    }
+    else
+    {
+    iportTips.innerHTML="地址格式错误";
+    iportTips.className="red";
+    pstats='NO';
+    }
+//    if(dstats && pstats == 'OK')
+//    {
+//    document.write(Date());
+//    return true;
+//    }
+}
+  </script>
 </html>

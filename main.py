@@ -1,6 +1,12 @@
 # -*- coding:utf-8 -*-
 import web
 import red
+import sys
+import alidns
+defaultencoding = 'utf-8'
+if sys.getdefaultencoding() != defaultencoding:
+    reload(sys)
+    sys.setdefaultencoding(defaultencoding)
 from  add_conf import add_conf
 urls = (    #定义路由，用户访问界面
     '/','Index',  #首页，首页指向
@@ -36,8 +42,14 @@ class Index(object):
 			opfl.write('\n')
 			opfl.close()
 		     	add_conf.cre_conf(domain,iport)
+			dns_pre_list=domain.strip('.').split('.')[:-2]
+			dns_pre='.'.join(dns_pre_list)
+			alidns.xiaoyun_dns_record('xiaoyun.com',dns_pre)
 			return 'hello '+ domain +"  " + iport
 		    else:
+			dns_pre_list=domain.strip('.').split('.')[:-2]
+			dns_pre='.'.join(dns_pre_list)
+			alidns.xiaoyun_dns_record('xiaoyun.com',dns_pre)
 			return 'already exists '+ domain + iport
 		else:
 			return 'error ' + domain+ "  " + iport

@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import os,re
-#ngxconf_dir='/hdd1/nginx/conf.d'
-ngxconf_dir='/nginx'
+ngxconf_dir='/hdd1/nginx/conf.d'
+#ngxconf_dir='/nginx'
 #domain='www.baidu.com'
 #iport='10.11.3.28:9999 10.11.3.22:3333 10.11.3.44:2222'
 class add_conf():
@@ -29,7 +29,7 @@ class add_conf():
 		lines.append(line)
             conf.close()
 	lines.insert(2,"	server_name %s;" % domain)
-	lines.insert(7,"	proxy_pass  %s;" % proxy_name)	
+	lines.insert(7,"	proxy_pass  http://%s;" % proxy_name)	
 	lines.insert(14,"upstream %s {" % proxy_name)
 	portiner_re=re.compile('^portainer\:[1-9]\d{3,6}$')
 	pm=portiner_re.match(iport)

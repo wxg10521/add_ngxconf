@@ -1,6 +1,6 @@
 import re
 import os
-domain_regex=re.compile(r'^[\w-]+\.\w+\.(com|cn|io|net|org)$')
+domain_regex=re.compile(r'^[\w-]+(\.\w+)?\.\w+\.(com|cn|io|net|org)$')
 iport_regex=re.compile('^((2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9]?[0-9])(\.(2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9]?[0-9])){3}|portainer)\:[1-9]\d{3,6}$')
 
 def domain_status(domain):

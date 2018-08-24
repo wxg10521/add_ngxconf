@@ -15,3 +15,16 @@ www.aats.com portainer:8882
 www.aats.com portainer:8882
 doc.xiaoyun.com 10.11.3.134:9090
 c.xiaoyun.com portainer:9090
+www.ha.com 10.11.3.134:9090
+www.aaa.com 10.11.3.134:9090
+bi.xiaoyun.com 10.11.3.137:11101
+test.test.com 10.11.2.33:8888
+wk-data.xiaoyun.com portainer:11102
+bi-custom.xiaoyun.com 10.11.3.137:11105
+test.ctrller.xiaoyun.com 10.11.3.137:11109
+test.test.xiaoyun.com 10.11.3.137:11109
+iosplugin.xiaoyun.com 10.11.3.137:11110
+redash.xiaoyun.com 10.11.3.137:11111
+redash.xiaoyun.com 10.11.3.137:11111
+testqixin.xiaoyun.com 10.11.3.134:9090
+qixinaa.xiaoyun.com 10.11.3.134:9090
