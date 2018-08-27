@@ -123,13 +123,13 @@ def xiaoyun_dns_record(DomainName,Cname):
 	ValueList.append(Value)
 	RRList.append(RR)
     if Cname in RRList:
-	if 'new-ngx.xiaoyun.com' in ValueList:
+	if 'new-ngx.domain.com' in ValueList:
 	    print 'DNS %s.%s CNAME new-ngx.xiaoyun.com record already exists.' % (Cname,DomainName)
 	else:
-	    edit_dns_record(DomainName,RR,Cname,'CNAME','new-ngx.xiaoyun.com')
+	    edit_dns_record(DomainName,RR,Cname,'CNAME','new-ngx.domain.com')
 	    print 'DNS %s.%s CNAME new-ngx.xiaoyun.com  edit success!' % (Cname,DomainName)
     else:
-	add_dns_record(DomainName,Cname,'CNAME','new-ngx.xiaoyun.com') 
+	add_dns_record(DomainName,Cname,'CNAME','new-ngx.domain.com') 
 	print 'DNS %s.%s CNAME new-ngx.xiaoyun.com add success' % (Cname,DomainName)
     print '\n'
 
@@ -139,12 +139,12 @@ for i in DomainName:
         pass
     else:
         list_dns_record(i)
-#xiaoyun_dns_record('xiaoyun.com','testqixin')
-#edit_dns_record('waayz.cn', 'test', 'test', 'CNAME', 'new-ngx.xiaoyun.com')
-#edit_dns_record('waayz.cn', 'test', 'test', 'A', '103.249.254.10')
-#add_dns_record('waayz.cn', 'test', 'A', '103.249.254.10')
-#add_dns_record('waayz.cn', 'test_ok', 'A', '103.249.254.10')
-#delete_dns_record('waayz.cn','test_ok')
-#set_dns_record('waayz.cn', 'test_ok', 'DISABLE')
-#set_dns_record('waayz.cn', 'test_ok', 'ENABLE')
+#xiaoyun_dns_record('domain.com','testxin')
+#edit_dns_record('waa.cn', 'test', 'test', 'CNAME', 'new-ngx.domain.com')
+#edit_dns_record('waa.cn', 'test', 'test', 'A', '103.1.1.10')
+#add_dns_record('waa.cn', 'test', 'A', '103.1.1.10')
+#add_dns_record('waa.cn', 'test_ok', 'A', '103.1.1.10')
+#delete_dns_record('waa.cn','test_ok')
+#set_dns_record('waa.cn', 'test_ok', 'DISABLE')
+#set_dns_record('waa.cn', 'test_ok', 'ENABLE')
 #list_domain()
