@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 import web
-import red
+import regex_form
 import sys
 import alidns
+import socket
 defaultencoding = 'utf-8'
 if sys.getdefaultencoding() != defaultencoding:
     reload(sys)
@@ -25,14 +26,13 @@ class hello:
 			return 'error  ' + name
 	else:
 		return "please enter user"
-
 class Index(object):
     def GET(self):
 	form = web.input(domain="",iport="")
 	domain=str(form.domain)
 	iport=str(form.iport)
-	domains=red.domain_status(domain)
-	iports=red.iport_status(iport)
+	domains=regex_form.domain_status(domain)
+	iports=regex_form.iport_status(iport)
 	domain_dir=domain.split()
         if domain!="" and iport!="":
 		if domains == "domainyes" and iports == "iportyes":
@@ -42,17 +42,27 @@ class Index(object):
 			opfl.write('\n')
 			opfl.close()
 		     	add_conf.cre_conf(domain,iport)
-			dns_pre_list=domain.strip('.').split('.')[:-2]
-			dns_pre='.'.join(dns_pre_list)
-			alidns.xiaoyun_dns_record('xiaoyun.com',dns_pre)
-			return 'hello '+ domain +"  " + iport
+			dns_tld_list=domain.strip('.').split('.')[-2:]
+			dns_tld='.'.join(dns_tld_list)
+			if dns_tld == 'xiaoyun.com': 
+			    dns_pre_list=domain.strip('.').split('.')[:-2]
+			    dns_pre='.'.join(dns_pre_list)
+			    alidns.xiaoyun_dns_record('xiaoyun.com',dns_pre)
+			    return 'The configuration and DNS success :'+ domain +"  " + iport
+			else:
+			    return 'Configuration success,DNS not resolved !'+ domain +"  " + iport
 		    else:
-			dns_pre_list=domain.strip('.').split('.')[:-2]
-			dns_pre='.'.join(dns_pre_list)
-			alidns.xiaoyun_dns_record('xiaoyun.com',dns_pre)
-			return 'already exists '+ domain + iport
+			dns_tld_list=domain.strip('.').split('.')[-2:]
+                        dns_tld='.'.join(dns_tld_list)
+                        if dns_tld == 'xiaoyun.com':
+			    hostip=socket.gethostbyname(domain)
+			    if hostip != '103.249.254.8':
+			        dns_pre_list=domain.strip('.').split('.')[:-2]
+			        dns_pre='.'.join(dns_pre_list)
+			        alidns.xiaoyun_dns_record('xiaoyun.com',dns_pre)
+			return 'Already exists configure '+ domain + iport
 		else:
-			return 'error ' + domain+ "  " + iport
+			return 'Unknom error ' + domain+ "  " + iport
         return render.index()
 if __name__ == '__main__':
     web.application(urls,globals()).run()

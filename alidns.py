@@ -10,8 +10,8 @@ import sys
 
 # 创建AcsClient实例
 client = AcsClient(
-   "access_id",
-   "access_secret",
+   "access_keysId",
+   "<accessSecret>",
    "regiond（cn-beijing）"
 );
 
@@ -50,7 +50,11 @@ def edit_dns_record(DomainName, hostname, hostname_new, Types, IP):
     DomainRecords = DescribeDomainRecordsRequest.DescribeDomainRecordsRequest()
     DomainRecords.set_accept_format('json')
     DomainRecords.set_DomainName(DomainName)
+#   打印显示一页500条记录，最多500，默认20
+    DomainRecords.add_query_param('PageSize', '500')
     DomainRecordsJson = json.loads(client.do_action_with_exception(DomainRecords))
+#   打印页数
+#    DomainRecords.add_query_param('PageSize', '2')
     for x in DomainRecordsJson['DomainRecords']['Record']:
         if hostname == x['RR']:
             RecordId = x['RecordId']
@@ -106,44 +110,51 @@ def set_dns_record(DomainName, hostname, status):
                 print SetDomainRecordJson
 
 #验证状态添加
-def xiaoyun_dns_record(DomainName,Cname):
+def xiaoyun_dns_record(DomainName,hostname):
     DomainRecords = DescribeDomainRecordsRequest.DescribeDomainRecordsRequest()
     DomainRecords.set_accept_format('json')
     DomainRecords.set_DomainName(DomainName)
+    DomainRecords.add_query_param('PageSize', '500')
     DomainRecordsJson = json.loads(client.do_action_with_exception(DomainRecords))
     print DomainName+':'
 #    print DomainRecordsJson
-    RRList=[]
-    ValueList=[]
+    ValueDic={}
     for x in DomainRecordsJson['DomainRecords']['Record']:
         RR = x['RR']
         Value = x['Value']
-	RR=RR.encode('utf8')
+        RR=RR.encode('utf8')
 	Value=Value.encode('utf8')
-	ValueList.append(Value)
-	RRList.append(RR)
-    if Cname in RRList:
-	if 'new-ngx.xiaoyun.com' in ValueList:
-	    print 'DNS %s.%s CNAME new-ngx.xiaoyun.com record already exists.' % (Cname,DomainName)
+        ValueDic[RR]=Value
+#    print ValueDic
+    if hostname in ValueDic:
+	if ValueDic[hostname] == 'new-ngx.xiaoyun.com':
+            print 'DNS %s.%s CNAME new-ngx.xiaoyun.com record already exists.' % (hostname,DomainName)
 	else:
-	    edit_dns_record(DomainName,RR,Cname,'CNAME','new-ngx.xiaoyun.com')
-	    print 'DNS %s.%s CNAME new-ngx.xiaoyun.com  edit success!' % (Cname,DomainName)
+	    edit_dns_record(DomainName,hostname,hostname,'CNAME','new-ngx.xiaoyun.com')
+	    print 'DNS %s.%s CNAME new-ngx.xiaoyun.com  edit success!' % (hostname,DomainName)
     else:
-	add_dns_record(DomainName,Cname,'CNAME','new-ngx.xiaoyun.com') 
-	print 'DNS %s.%s CNAME new-ngx.xiaoyun.com add success' % (Cname,DomainName)
+	print 'DNS %s.%s CNAME new-ngx.xiaoyun.com add success' % (hostname,DomainName)
+	#add_dns_record(DomainName,hostname,'CNAME','new-ngx.xiaoyun.com') 
+#        elif RR == hostname and Value != 'new-ngx.xiaoyun.com':
+#	    edit_dns_record(DomainName,hostname,hostname,'CNAME','new-ngx.xiaoyun.com')
+#	    print 'DNS %s.%s CNAME new-ngx.xiaoyun.com  edit success!' % (hostname,DomainName)
+#    if hostname in
+#	  add_dns_record(DomainName,hostname,'CNAME','new-ngx.xiaoyun.com') 
+#	  print 'DNS %s.%s CNAME new-ngx.xiaoyun.com add success' % (hostname,DomainName)
     print '\n'
 
-DomainName = sys.argv
-for i in DomainName:
-    if i == sys.argv[0]:
-        pass
-    else:
-        list_dns_record(i)
-#xiaoyun_dns_record('xiaoyun.com','testqixin')
-#edit_dns_record('waayz.cn', 'test', 'test', 'CNAME', 'new-ngx.xiaoyun.com')
-#edit_dns_record('waayz.cn', 'test', 'test', 'A', '103.249.254.10')
-#add_dns_record('waayz.cn', 'test', 'A', '103.249.254.10')
-#add_dns_record('waayz.cn', 'test_ok', 'A', '103.249.254.10')
+#DomainName = sys.argv
+#for i in DomainName:
+#    if i == sys.argv[0]:
+#        pass
+#    else:
+#        list_dns_record(i)
+#xiaoyun_dns_record('test.com','20170315')
+#edit_dns_record('test.com', 'admin', 'admin', 'CNAME', 'new-ngx.test.com')
+#edit_dns_record('test.com', 'h5-demo1', 'h5-demo1', 'A', '103.249.2.10')
+#edit_dns_record('waayz.cn', 'test', 'test', 'A', '103.249.2.10')
+#add_dns_record('waayz.cn', 'test', 'A', '103.249.2.10')
+#add_dns_record('waayz.cn', 'test_ok', 'A', '103.249.2.10')
 #delete_dns_record('waayz.cn','test_ok')
 #set_dns_record('waayz.cn', 'test_ok', 'DISABLE')
 #set_dns_record('waayz.cn', 'test_ok', 'ENABLE')

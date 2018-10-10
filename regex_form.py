@@ -12,7 +12,6 @@ def domain_status(domain):
 def iport_status(iport):
     regex = re.compile('\s+')
     iport_list=regex.split(iport)
-    print iport_list
     l=len(iport)
     for i in range(l):
         im=iport_regex.match(iport_list[i])
