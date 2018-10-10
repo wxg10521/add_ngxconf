@@ -124,6 +124,7 @@ def xiaoyun_dns_record(DomainName,hostname):
         Value = x['Value']
         RR=RR.encode('utf8')
 	Value=Value.encode('utf8')
+<<<<<<< HEAD
         ValueDic[RR]=Value
 #    print ValueDic
     if hostname in ValueDic:
@@ -158,4 +159,33 @@ def xiaoyun_dns_record(DomainName,hostname):
 #delete_dns_record('waayz.cn','test_ok')
 #set_dns_record('waayz.cn', 'test_ok', 'DISABLE')
 #set_dns_record('waayz.cn', 'test_ok', 'ENABLE')
+=======
+	ValueList.append(Value)
+	RRList.append(RR)
+    if Cname in RRList:
+	if 'new-ngx.domain.com' in ValueList:
+	    print 'DNS %s.%s CNAME new-ngx.xiaoyun.com record already exists.' % (Cname,DomainName)
+	else:
+	    edit_dns_record(DomainName,RR,Cname,'CNAME','new-ngx.domain.com')
+	    print 'DNS %s.%s CNAME new-ngx.xiaoyun.com  edit success!' % (Cname,DomainName)
+    else:
+	add_dns_record(DomainName,Cname,'CNAME','new-ngx.domain.com') 
+	print 'DNS %s.%s CNAME new-ngx.xiaoyun.com add success' % (Cname,DomainName)
+    print '\n'
+
+DomainName = sys.argv
+for i in DomainName:
+    if i == sys.argv[0]:
+        pass
+    else:
+        list_dns_record(i)
+#xiaoyun_dns_record('domain.com','testxin')
+#edit_dns_record('waa.cn', 'test', 'test', 'CNAME', 'new-ngx.domain.com')
+#edit_dns_record('waa.cn', 'test', 'test', 'A', '103.1.1.10')
+#add_dns_record('waa.cn', 'test', 'A', '103.1.1.10')
+#add_dns_record('waa.cn', 'test_ok', 'A', '103.1.1.10')
+#delete_dns_record('waa.cn','test_ok')
+#set_dns_record('waa.cn', 'test_ok', 'DISABLE')
+#set_dns_record('waa.cn', 'test_ok', 'ENABLE')
+>>>>>>> ca76f4ed4e09e5b70b845d52466aefe9aeb2df25
 #list_domain()
