@@ -44,22 +44,22 @@ class Index(object):
 		     	add_conf.cre_conf(domain,iport)
 			dns_tld_list=domain.strip('.').split('.')[-2:]
 			dns_tld='.'.join(dns_tld_list)
-			if dns_tld == 'xiaoyun.com': 
+			if dns_tld == 'test.com': 
 			    dns_pre_list=domain.strip('.').split('.')[:-2]
 			    dns_pre='.'.join(dns_pre_list)
-			    alidns.xiaoyun_dns_record('xiaoyun.com',dns_pre)
+			    alidns.xiaoyun_dns_record('test.com',dns_pre)
 			    return 'The configuration and DNS success :'+ domain +"  " + iport
 			else:
 			    return 'Configuration success,DNS not resolved !'+ domain +"  " + iport
 		    else:
 			dns_tld_list=domain.strip('.').split('.')[-2:]
                         dns_tld='.'.join(dns_tld_list)
-                        if dns_tld == 'xiaoyun.com':
+                        if dns_tld == 'test.com':
 			    hostip=socket.gethostbyname(domain)
 			    if hostip != '103.249.254.8':
 			        dns_pre_list=domain.strip('.').split('.')[:-2]
 			        dns_pre='.'.join(dns_pre_list)
-			        alidns.xiaoyun_dns_record('xiaoyun.com',dns_pre)
+			        alidns.xiaoyun_dns_record('test.com',dns_pre)
 			return 'Already exists configure '+ domain + iport
 		else:
 			return 'Unknom error ' + domain+ "  " + iport

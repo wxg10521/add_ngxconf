@@ -127,28 +127,22 @@ def xiaoyun_dns_record(DomainName,hostname):
         ValueDic[RR]=Value
 #    print ValueDic
     if hostname in ValueDic:
-	if ValueDic[hostname] == 'new-ngx.xiaoyun.com':
-            print 'DNS %s.%s CNAME new-ngx.xiaoyun.com record already exists.' % (hostname,DomainName)
+	if ValueDic[hostname] == 'new-ngx.test.com':
+            print 'DNS %s.%s CNAME new-ngx.test.com record already exists.' % (hostname,DomainName)
 	else:
-	    edit_dns_record(DomainName,hostname,hostname,'CNAME','new-ngx.xiaoyun.com')
-	    print 'DNS %s.%s CNAME new-ngx.xiaoyun.com  edit success!' % (hostname,DomainName)
+	    edit_dns_record(DomainName,hostname,hostname,'CNAME','new-ngx.test.com')
+	    print 'DNS %s.%s CNAME new-ngx.test.com  edit success!' % (hostname,DomainName)
     else:
-	print 'DNS %s.%s CNAME new-ngx.xiaoyun.com add success' % (hostname,DomainName)
-	#add_dns_record(DomainName,hostname,'CNAME','new-ngx.xiaoyun.com') 
-#        elif RR == hostname and Value != 'new-ngx.xiaoyun.com':
-#	    edit_dns_record(DomainName,hostname,hostname,'CNAME','new-ngx.xiaoyun.com')
-#	    print 'DNS %s.%s CNAME new-ngx.xiaoyun.com  edit success!' % (hostname,DomainName)
-#    if hostname in
-#	  add_dns_record(DomainName,hostname,'CNAME','new-ngx.xiaoyun.com') 
-#	  print 'DNS %s.%s CNAME new-ngx.xiaoyun.com add success' % (hostname,DomainName)
+	print 'DNS %s.%s CNAME new-ngx.test.com add success' % (hostname,DomainName)
+	add_dns_record(DomainName,hostname,'CNAME','new-ngx.test.com') 
     print '\n'
 
-#DomainName = sys.argv
-#for i in DomainName:
-#    if i == sys.argv[0]:
-#        pass
-#    else:
-#        list_dns_record(i)
+DomainName = sys.argv
+for i in DomainName:
+    if i == sys.argv[0]:
+        pass
+    else:
+        list_dns_record(i)
 #xiaoyun_dns_record('test.com','20170315')
 #edit_dns_record('test.com', 'admin', 'admin', 'CNAME', 'new-ngx.test.com')
 #edit_dns_record('test.com', 'h5-demo1', 'h5-demo1', 'A', '103.249.2.10')
