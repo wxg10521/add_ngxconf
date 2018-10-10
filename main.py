@@ -42,7 +42,6 @@ class Index(object):
 			opfl.write('\n')
 			opfl.close()
 		     	add_conf.cre_conf(domain,iport)
-<<<<<<< HEAD
 			dns_tld_list=domain.strip('.').split('.')[-2:]
 			dns_tld='.'.join(dns_tld_list)
 			if dns_tld == 'xiaoyun.com': 
@@ -62,17 +61,6 @@ class Index(object):
 			        dns_pre='.'.join(dns_pre_list)
 			        alidns.xiaoyun_dns_record('xiaoyun.com',dns_pre)
 			return 'Already exists configure '+ domain + iport
-=======
-			dns_pre_list=domain.strip('.').split('.')[:-2]
-			dns_pre='.'.join(dns_pre_list)
-			alidns.xiaoyun_dns_record('domain.com',dns_pre)
-			return 'hello '+ domain +"  " + iport
-		    else:
-			dns_pre_list=domain.strip('.').split('.')[:-2]
-			dns_pre='.'.join(dns_pre_list)
-			alidns.xiaoyun_dns_record('domain.com',dns_pre)
-			return 'already exists '+ domain + iport
->>>>>>> ca76f4ed4e09e5b70b845d52466aefe9aeb2df25
 		else:
 			return 'Unknom error ' + domain+ "  " + iport
         return render.index()
